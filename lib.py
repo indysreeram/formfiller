@@ -6,6 +6,10 @@ from contextlib import contextmanager
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 
 class Form:
     def __init__(self, url, headless=False):
@@ -143,3 +147,30 @@ class SleepElement(FormElement):
 
     def run(self):
         time.sleep(self.seconds)
+
+
+class Notify:
+    def __init__(self,server,pwd,fromaddr,toaddr,subject,body):
+        self.fromaddr = fromaddr
+        self.toaddr = toaddr
+        self.body = body
+        self.subject = subject
+        self.server = smtplib.SMTP(server, 587)
+        self.pwd = pwd
+
+    def send_email(self):
+        msg = MIMEMultipart()
+        msg['From'] = self.fromaddr
+        msg['To'] = self.toaddr
+        msg['Subject'] = self.subject
+        msg.attach(MIMEText(self.body, 'plain'))
+        # server = self.server
+        self.server.starttls()
+        self.server.login(self.fromaddr, self.pwd)
+        text = msg.as_string()
+        self.server.sendmail(self.fromaddr, self.toaddr, text)
+        self.server.quit()
+
+
+
+
