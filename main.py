@@ -75,9 +75,13 @@ for row in spreadsheet.rows:
 
                 if len(row_dict['generation_code']) >= 4:
                      form.fill([
-                          form.select(selector='.custom-combobox-input', val=row_dict['equifax_subscriber_code']),
-                          form.select(selector='.custom-combobox-input', nth_child=1,val=row_dict['experian_subscriber_code']),
-                          form.select(selector='.custom-combobox-input', nth_child=3,val=row_dict['transunion_subscriber_code']),
+                          # form.select(selector='.custom-combobox-input', val=row_dict['equifax_subscriber_code']),
+                          # form.select(selector='.custom-combobox-input', nth_child=1,val=row_dict['experian_subscriber_code']),
+                          # form.select(selector='.custom-combobox-input', nth_child=3,val=row_dict['transunion_subscriber_code']),
+
+                          form.select(selector='[list=EquifaxCodeList]', val=row_dict['equifax_subscriber_code']),
+                          form.select(selector='[list=ExperianCodeList]', val=row_dict['experian_subscriber_code']),
+                          form.select(selector='[list=TransunionCodeList]', val=row_dict['transunion_subscriber_code']),
                           form.select(id='headerInformation.audCorrectionIndicator',val=row_dict['aud_correction_indicator']),
                           form.select(id='consumerInformation.lastName', val=row_dict['last_name']),
                           form.select(id='consumerInformation.firstName', val=row_dict['first_name']),
@@ -93,9 +97,15 @@ for row in spreadsheet.rows:
                             ])
                 else:
                       form.fill([
-                          form.select(selector='.custom-combobox-input', val=row_dict['equifax_subscriber_code']),
-                          form.select(selector='.custom-combobox-input', nth_child=1,val=row_dict['experian_subscriber_code']),
-                          form.select(selector='.custom-combobox-input', nth_child=3,val=row_dict['transunion_subscriber_code']),
+
+                          # form.select(selector='.custom-combobox-input', val=row_dict['equifax_subscriber_code']),
+                          # form.select(selector='.custom-combobox-input', nth_child=1,val=row_dict['experian_subscriber_code']),
+                          # form.select(selector='.custom-combobox-input', nth_child=3,val=row_dict['transunion_subscriber_code']),
+
+                          form.select(selector='[list=EquifaxCodeList]', val=row_dict['equifax_subscriber_code']),
+                          form.select(selector='[list=ExperianCodeList]', val=row_dict['experian_subscriber_code']),
+                          form.select(selector='[list=TransunionCodeList]', val=row_dict['transunion_subscriber_code']),
+
                           form.select(id='headerInformation.audCorrectionIndicator',val=row_dict['aud_correction_indicator']),
                           form.select(id='consumerInformation.lastName', val=row_dict['last_name']),
                           form.select(id='consumerInformation.firstName', val=row_dict['first_name']),
@@ -165,9 +175,9 @@ process_end_time = time.strftime("%Y-%m-%d %H:%M:%S", ts)
 
 
 body =  body + '\n' + 'Process End time : ' + process_end_time
-notify = Notify('YOUR_SMTP_SERVER','YOUR_PASSWORD','FROM_ADDRESS','TO_ADDRESS','eOScar Woordbury Process',body)
+# notify = Notify('YOUR_SMTP_SERVER','YOUR_PASSWORD','FROM_ADDRESS','TO_ADDRESS','eOScar Woordbury Process',body)
 print (body)
-notify.send_email()
+# notify.send_email()
 print('eOscar Woodbury Process Done at {} !!!!'.format(process_end_time))
 
 
